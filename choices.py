@@ -1,21 +1,13 @@
 import mysql.connector
+import random
 
-# Connect to the MySQL database
 connection = mysql.connector.connect(
-    host='127.0.0.1',
-    port=3306,
-    database='clean_world',
-    user='mark',
-    password='metropolia')
-
-
-def question(question_id):
-    sql = "SELECT id, text FROM quiz_question WHERE id =" + str(question_id)
-    cursor = connection.cursor()
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    for row in result:
-        print(f'Question is: {row[1]}')
+    host= '127.0.0.1',
+    port= 3306,
+    database= 'clean_world',
+    user= 'mark',
+    password= 'metropolia',
+    autocommit=True)
 
 
 def quiz_question_option(question_id):
@@ -26,7 +18,7 @@ def quiz_question_option(question_id):
     # show answer with that id
 
     #let user choose option
-    question_id = int(input('question id: '))
+
     # evaluate answer
     sql = "select id, text from quiz_question_option where quiz_question_id = " + str(question_id)
     cursor = connection.cursor()
@@ -39,9 +31,5 @@ def quiz_question_option(question_id):
 
         return
 
-
-question_id = int(input('question id: '))
-question(question_id)
+question_id = int(input('id: '))
 quiz_question_option(question_id)
-
-
