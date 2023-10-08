@@ -8,7 +8,7 @@ from config import connection
 #     user = "root",
 #     password = "",
 #     autocommit = True
-)
+
 def getTables():
     sql = "SHOW tables"
     cursor = connection.cursor()
