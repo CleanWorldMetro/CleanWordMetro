@@ -7,7 +7,8 @@ def main():
         #show normal game
         # show
 
-        Trung.inCityGui()
+        option = Trung.inCityGui()
+        Trung.chooseOptionInCity(option)
 
 
 main()

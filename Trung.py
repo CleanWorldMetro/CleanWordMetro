@@ -65,11 +65,12 @@ def getPlayerByName(name):
     result = cursor.fetchall()
 
     return result
-def getRobotsInCity():
-    sql = "SELECT  from robot"
-    finalSQL =f"WHERE "
+def getRobotsInCity(city):
+    sql = "SELECT robot.id, robot.name, robot.type, robot.pollustat from robot,city"
+    moreSql =f"{sql} WHERE robot.location = city.id"
+    finalSql =f"{moreSql} AND city.name = '{city}'"
     cursor = connection.cursor()
-    cursor.execute(sql)
+    cursor.execute(finalSql)
     result = cursor.fetchall()
     print("this is",result)
     # result =runSQL(sql)
@@ -173,8 +174,8 @@ def goFarm():
 # getPlayers()
 # print(getPlayerByName("Trung"))
 # loadingPlayerByID(3)
-player =loadingPlayerByID(3)
-goFarm()
+# player =loadingPlayerByID(3)
+# goFarm()
 
 # print(f"old player${player}")
 # player[2] = 5
@@ -185,8 +186,9 @@ goFarm()
 # updatePlayerStat(newPlayerTuble)
 # getPlayerByID(3)
 # getRobots()
-getRobotById(1)
+# getRobotById(1)
 # getMatches()
 # getQuestions()
 # getOptionForQuestions(1)
 # chooseOptionInCity(inCityGui())
+getRobotsInCity("Helsinki")
