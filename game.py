@@ -1,3 +1,4 @@
+import Trung
 def main():
     while True:
         # if isNew
@@ -6,7 +7,7 @@ def main():
         #show normal game
         # show
 
-
+        Trung.inCityGui()
 
 
 main()

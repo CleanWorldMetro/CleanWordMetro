@@ -1,3 +1,5 @@
+import random
+
 from config import connection
 
 
@@ -8,26 +10,31 @@ from config import connection
 #     user = "root",
 #     password = "",
 #     autocommit = True
-
+player = []
+boss = []
+city = ""
 def getTables():
     sql = "SHOW tables"
     cursor = connection.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
-    print("this is",result)
+    # print("this is",result)
     # result =runSQL(sql)
     for table in result:
         print(table)
+
+# getCurrentCity():
+# sql= "Select city.name from player, city"
+# finalSql = f"WHERE player."
 
 def getPlayers():
     sql = "SELECT * from player"
     cursor = connection.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
-    print("this is",result)
+    # print("this is",result)
     # result =runSQL(sql)
-    for table in result:
-        print(table)
+    return result
 
 def getPlayerByID(id):
         sql = "SELECT * from player "
@@ -35,22 +42,52 @@ def getPlayerByID(id):
         cursor = connection.cursor()
         cursor.execute(finalSql)
         result = cursor.fetchall()
-        print("this is", result)
+        # print("this is", result)
         # result =runSQL(sql)
-        for player in result:
-            print(player)
+        # for player in result:
+        #     print(player)
+        return result[0]
 
-def getRobots():
-    sql = "SELECT * from robot"
+def loadingPlayerByID(playerId):
+    playerTuple = getPlayerByID(playerId)
+    # print(playerTuple)
+    currentPlayer = []
+    for value in playerTuple:
+        currentPlayer.append(value)
+    # print(currentPlayer)
+    return currentPlayer
+
+def getPlayerByName(name):
+    sql = "Select * from player "
+    finalSql = sql + "where name = '" +name + "'"
+    cursor = connection.cursor()
+    cursor.execute(finalSql)
+    result = cursor.fetchall()
+
+    return result
+def getRobotsInCity():
+    sql = "SELECT  from robot"
+    finalSQL =f"WHERE "
     cursor = connection.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
     print("this is",result)
     # result =runSQL(sql)
-    for table in result:
-        print(table)
+    return result
 
-player_info = []
+def getRobotById(robotId):
+    sql = "SELECT * FROM robot "
+    resultSql = f"{sql} WHERE id ={robotId}"
+    cursor = connection.cursor()
+    cursor.execute(resultSql)
+    result = cursor.fetchall()
+    print("this is one robot", result)
+    return result
+
+# def getBoss():
+#     getRobotById()
+
+# player_info = []
 def getMatches():
     sql = "SELECT * from match_game"
     cursor = connection.cursor()
@@ -70,6 +107,7 @@ def getQuestions():
     # result =runSQL(sql)
     for question in result:
         print(question)
+
 
 def getOptionForQuestions(id):
     sql = "SELECT * from quiz_question_option "
@@ -100,12 +138,55 @@ def chooseOptionInCity(number):
     if number == 4:
         print("do nothing")
 
+# update player
+# set resStat = 2
+# where id = 3;
+# select * from player;
+def updatePlayerStat(playerTuple):
+    id = playerTuple[0]
+    print(id)
+    newStat = playerTuple[2]
+    print(newStat)
+    sql = " UPDATE player"
+    finalsql = f"{sql} SET resStat = {newStat} where id = {id}"
+    cursor = connection.cursor()
+    cursor.execute(finalsql)
+    result = cursor.fetchall()
+    print("this is", result)
+
+def playerToTuple(player):
+    playerTuple = tuple(player)
+    print(playerTuple)
+    return playerTuple
+
+def generateRandomRobotID():
+    return random.randint(player[3],)
+
+def goFarm():
+    # generate random robot
+    print(f"go farming: {player}")
+
+
+
 # getTables()
 # player_info = []
 # getPlayers()
-# getPlayerByID(1)
+# print(getPlayerByName("Trung"))
+# loadingPlayerByID(3)
+player =loadingPlayerByID(3)
+goFarm()
+
+# print(f"old player${player}")
+# player[2] = 5
+# print(f"new player ${player}")
+# newPlayerTuble = playerToTuple(player)
+# # print(newPlayerTuble)
+# # print(newPlayerTuble[0])
+# updatePlayerStat(newPlayerTuble)
+# getPlayerByID(3)
 # getRobots()
+getRobotById(1)
 # getMatches()
 # getQuestions()
 # getOptionForQuestions(1)
-chooseOptionInCity(inCityGui())
+# chooseOptionInCity(inCityGui())
