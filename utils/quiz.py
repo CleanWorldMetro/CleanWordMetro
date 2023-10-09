@@ -1,12 +1,6 @@
-import mysql.connector
 import random
-connection = mysql.connector.connect(
-    host= '127.0.0.1',
-    port= 3306,
-    database= 'clean_world',
-    user= 'dbuser',
-    password= 'pass_word',
-    autocommit=True)
+from config import connection
+
 
 def quiz_question(location_id):
     sql = "select quiz_question.text from city,quiz_question"
