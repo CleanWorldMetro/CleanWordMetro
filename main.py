@@ -1,4 +1,4 @@
-import Trung
+import utils.game as game
 def main():
     while True:
         # if isNew
@@ -7,8 +7,8 @@ def main():
         #show normal game
         # show
 
-        option = Trung.inCityGui()
-        Trung.chooseOptionInCity(option)
+        option = game.inCityGui()
+        game.chooseOptionInCity(option)
 
 
 main()
