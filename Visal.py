@@ -1,13 +1,3 @@
-import mysql.connector
-
-connection = mysql.connector.connect(
-    host="127.0.0.1",
-    port= 3306,
-    database="clean_world",
-    user="root",
-    password="1234",
-    autocommit=True
-)
 
 import mysql.connector
 
@@ -21,14 +11,6 @@ connection = mysql.connector.connect(
 )
 
 
-def assignquestions(answer):
-    sql = "SELECT id, text FROM quiz_question WHERE id=" + str(answer)
-    cursor = connection.cursor()
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    for row in result:
-        print(f"Question is: {row[1]}")
-    return
 
 
 def start():
@@ -49,7 +31,13 @@ def start():
 
     elif option == 2:
         existing_user = input("Enter existing username: ")
-        # Add code to check if the existing user is in the database
+        sql = f"SELECT * FROM player WHERE name = ('{existing_user}')"
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        if result:
+            print(f"Welcome back {existing_user}!")
+
 
     elif option == 3:
         print("Exiting Game!")
@@ -57,6 +45,5 @@ def start():
 
 start()
 
-answer = int(input("Enter robot id: "))
-assignquestions(answer)
+
 
