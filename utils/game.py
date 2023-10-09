@@ -1,3 +1,5 @@
+import utils.quiz as quiz
+
 def inCityGui():
     print("What do you want to do \n"
           "1. go meet the boss \n"
@@ -13,6 +15,11 @@ def chooseOptionInCity(number):
         print("go farm")
     if number == 3:
         print("let's find some treasure")
+        randomQuestion = quiz.newRandomQuestion
+        print(randomQuestion)
+
     if number == 4:
         print("do nothing")
 
+# option = inCityGui()
+# chooseOptionInCity(option)

@@ -2,4 +2,5 @@ service.py
 config.py
 /venv/
 /.idea/
+_pycache_/
 /_pycache_/
