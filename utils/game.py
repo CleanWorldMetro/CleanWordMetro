@@ -15,3 +15,4 @@ def chooseOptionInCity(number):
         print("let's find some treasure")
     if number == 4:
         print("do nothing")
+
