@@ -92,6 +92,7 @@ def isExist(username,namesInDatabase ):
         return True
     else:
         return False
+
 def inputName():
      name= input("Type your username: ")
      return name
@@ -103,21 +104,65 @@ def formatedNameList(nameListFromDatabase):
         onlyNameList.append(nameInData)
     # print(onlyNameList)
     return onlyNameList
+nameInDatabase = getPlayers()
+checkName = isExist(inputName, nameInDatabase )
 def game():
-    nameList = getPlayers() ## lay nameList
-    onlyNameList = formatedNameList(nameList)
-    print(onlyNameList)
-    name = inputName() ## user dien ten
+    while True:
+        nameList = getPlayers() ## lay nameList
+        onlyNameList = formatedNameList(nameList)
+        # print(onlyNameList)
+        name = inputName() ## user dien ten
+        nameExist = isExist(name,onlyNameList)#return true or false
+        print(nameExist)
+        if nameExist == True:
+            print("Name already used")
+            print("Type another name")
+            print(f"If you were {name}, please type again. And if you were not just entering another name")
+            newName = input("Type your username: ")
+            if newName == name:
+                print("1.New game")
+                print("2.Continue")
+                print("3.Exit program")
+                option = int(input("Please enter your option(1/2/3): "))
+                if option == 1:
+                    print("Welcome to new game!")
+                    break
+                elif option == 2:
+                    print("Here is your point and your stamina !")
+                    break
+                elif option == 3:
+                    print("End process")
+                    break
+                else:
+                    print("Invalid number, please type in range(1/2/3)")
+            elif newName != name and newName not in onlyNameList:
+                print("1.New name")
+                print("2.Exit program")
+                option1 = int(input("Please enter your option(1/2): "))
+                if option1 == 1:
+                    print("Welcome to Clean World !!")
+                    break
+                elif option1 == 2:
+                    print("End process")
+                    break
+        elif nameExist == False:
+            print("Congratulation !! It is a new name")
+            print("1.New game")
+            print("2.Exit program")
+            optionA = int(input("Please enter your option(1/2): "))
+            if optionA == 1:
+                print("Welcome to Clean World!!!")
+                break
+            elif optionA == 2:
+                print("End process")
+                break
+            else:
+                print("Invalid number, please type in range(1/2)")
 
-    # formatedList = formatedNameList(nameList) # format nameList
-    # print(formatedList)
-    # return nameinData
 
-    nameExist = isExist(name,onlyNameList) #return true or false
-    print(nameExist)
-    # while nameExist: # if name is existed
-    #     print("Name already used")
-    #     print("Type another name")
+        # while nameExist: # if name is existed
+        #     print("Name already used")
+        #     print("Type another name")
 game()
 
     # nameExist = isExist(result1,name) # true / false
@@ -128,5 +173,55 @@ game()
     # else:
     #     return
 # print(getPlayers())
+
+# inputName = inputName()
+nameInDatabase = getPlayers()
+checkName = isExist(inputName, nameInDatabase )
+def optionPlayer():
+    while True:
+
+       if isExist(inputName, nameInDatabase) == True:
+           print("1.New game")
+           print("2.Continue")
+           print("3.Exit program")
+           option = int(input("Please enter your option(1/2/3): "))
+           if option == 1:
+               print("Welcome to new game!")
+               break
+           elif option == 2:
+               print("Here is your point and your stamina !")
+               break
+           elif option == 3:
+               print("End process")
+               break
+           else:
+               print("Invalid number, please type in range(1/2/3)")
+       else:
+           print("Congratulation !! It is a new name")
+           print("1.New game")
+           print("2.Exit program")
+           optionA = int(input("Please enter your option(1/2): "))
+           if optionA == 1:
+                print("Welcome to Clean World!!!")
+                break
+           elif optionA == 2:
+                print("End process")
+                break
+           else:
+                print("Invalid number, please type in range(1/2)")
+# optionPlayer()
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
