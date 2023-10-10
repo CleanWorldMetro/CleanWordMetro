@@ -7,7 +7,6 @@ connection = mysql.connector.connect(
     user= 'dbuser',
     password= 'pass_word',
     autocommit=True)
-mylist=[]
 def quiz_question(location_id):
     sql = "select quiz_question.text from city,quiz_question"
     sql = sql + " where quiz_question.location_id=city.id and"
@@ -16,50 +15,53 @@ def quiz_question(location_id):
     cursor.execute(sql)
     result= cursor.fetchall()
     random_quizz = random.choice(result)
-    # if cursor.rowcount > 0:
-    #     for random_quizz in result:
-    #         print(f"the question is {random_quizz}")
     return result
 
 def generateRandomQuestion(questionList):
     randomQuestion = random.choice(questionList)
     return randomQuestion[0]
-# newRandomQuestion = generateRandomQuestion(currentQuestionList)
-# print(newRandomQuestion)
-
-
-
 def quiz_question_id(name):
     sql="select quiz_question.id from quiz_question"
     sql=sql + " where quiz_question.text='"+name+"'"
     cursor = connection.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
-    # print(result)
     if cursor.rowcount > 0:
         for id in result:
-            # print(id[0])
             return id[0]
-    # return
-
-location_id = 1  ## get location
-# print(quiz_question(location_id))
-currentQuestionList = quiz_question(location_id) ## get question list at location id 1
-# print(currentQuestionList)
+def quiz_question_option(option):
+    sql="select quiz_question_option.text from quiz_question_option,quiz_question"
+    sql=sql + " where quiz_question_option.quiz_question_id=quiz_question.id and"
+    sql=sql + " quiz_question_option.quiz_question_id='"+str(option)+"'"
+    cursor=connection.cursor()
+    cursor.execute(sql)
+    result=cursor.fetchall()
+    if cursor.rowcount>0:
+        for index,opt in enumerate(result,start=1):
+            print(index,")",opt[0])
+    return result
+def comparing(official):
+    sql="select is_correct from quiz_question_option"
+    sql=sql + " where quiz_question_option.text='"+official+"'"
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    if cursor.rowcount>0:##result = [(1,),(0,)]
+        return result[0]
+location_id = 1
+currentQuestionList = quiz_question(location_id)
 question = generateRandomQuestion(currentQuestionList)
 print(question)
-mylist.append(question)
-# print(quiz_question_id(question))
-var1 = quiz_question_id(question)
-print(var1)
-
-
-# for x in mylist:
-#     print(x)
-# name=x
-# var1 = quiz_question_id(question)
-# # print(quiz_question_id(name))
-# print(var1)
-# print(someVar)
-
-
+question_id = quiz_question_id(question) ## lay id tu question
+option=question_id
+options = quiz_question_option(option) # lay toan bo option thuoc question_id
+player=int(input("choose options: "))
+# userOption = options[player-1]  #tuple
+# onlyStringUserOption = userOption[0]
+# official=options
+# comparing(official)
+x=options[player-1][0]
+if comparing(x)[0]==1:
+    print("correct")
+else:
+    print("incorrect")

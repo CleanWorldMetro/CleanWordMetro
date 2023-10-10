@@ -33,3 +33,7 @@
 #     #     print("incorrect")
 #         return
 # quiz_question_option()
+sql="select quiz_question_option.text from quiz_question_option,quiz_question"
+sql=sql + " where quiz_question_option.quiz_question_id=quiz_question.id and"
+sql=sql + " quiz_question_option.quiz_question_id='1';"
+print(sql)

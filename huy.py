@@ -39,6 +39,21 @@ def player():
         for x in result:
             print(f"{x[0]}")
     return
+
+def enterUsername() :
+    username = input("Enter your player name: ")
+    return username
+def userChooseGame(username,listUser):
+    if username in listUser:
+        print("1.Continue game with this name")
+        print("2.Change a new name")
+        print("3.Exit")
+        number = int(input("Type your number(1,2,3): "))
+        return number
+
+def continueWithThisName():
+    return
+
 # player()
 def nameofuser():
     listuser = []

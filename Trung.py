@@ -63,8 +63,8 @@ def getPlayerByName(name):
     cursor = connection.cursor()
     cursor.execute(finalSql)
     result = cursor.fetchall()
-
     return result
+
 def getRobotsInCity(city):
     sql = "SELECT robot.id, robot.name, robot.type, robot.pollustat from robot,city"
     moreSql =f"{sql} WHERE robot.location = city.id"
@@ -116,10 +116,12 @@ def getOptionForQuestions(id):
     cursor = connection.cursor()
     cursor.execute(finalsql)
     result = cursor.fetchall()
-    print("this is", result)
+    # print("this is", result)
     # result =runSQL(sql)
     for question in result:
-        print(question)
+        print(f"{question[0]} {question[1]}")
+        # print(question)
+    return result
 
 def inCityGui():
     print("What do you want to do \n"
@@ -167,7 +169,90 @@ def goFarm():
     # generate random robot
     print(f"go farming: {player}")
 
+def answerFromUser(question_id):
+    sql = "select id, text from quiz_question_option where quiz_question_id = " + str(question_id)
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    return result #result user answer as a
 
+def userAnser(options):
+    option_id = int(input("Type your answer(1-4)"))
+    # options = getOptionForQuestions(question_id)
+    user_option = options[option_id - 1]
+    return user_option
+
+def checking(userAnswer): ## return true or false for the user answer
+    # options = getOptionForQuestions(question_id)
+    # userAnswer = userAnser(question_id)
+    # print(userAnswer)
+    answerIsCorrect = userAnswer[3]## check if option is correct
+    if answerIsCorrect == 1 :
+        print(" You are correct!")
+        return True
+    else:
+        print(" You are not correct")
+        return False
+
+def question(question_id):
+    sql = "SELECT id, text FROM quiz_question WHERE id =" + str(question_id)
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    for row in result:
+        print(f'Question is: {row[1]}')
+
+def insertUserOption(userOption):
+    userOptionToTuple = tuple(userOption)
+    userOptionColumn = "player_ID,quiz_question_ID,quiz_answer_option_ID,is_correct"
+    sql = f"INSERT INTO quiz_user_answer({userOptionColumn}) Value {userOptionToTuple}"
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    return result #result user answer as a
+
+
+
+
+userId = 1
+questionId = 1
+question(questionId)
+options = getOptionForQuestions(questionId)
+# print(options)
+userAnswer = userAnser(options)
+userAnswer_Id = userAnswer[0]
+
+isCorrect = checking(userAnswer) ## have it
+userOption = [userId,questionId,userAnswer_Id,isCorrect] # Record of User Answer
+print(userOption)
+insertUserOption(userOption)
+
+
+# user_answer = [1]
+    #return a list of option with quiz_question_id = 1
+# def InserUserAnswer(user_id,quiz_question_id,quiz_answer_option_id,isCorrect):
+#     userAnswer = [user_id,quiz_question_id,quiz_answer_option_id,isCorrect]
+#     userListToTupple = tuple(userAnswer)
+#     sql = f"INSERT INTO quiz_user_answer Value {userListToTupple}"
+#     cursor = connection.cursor()
+#     cursor.execute(sql)
+#     result = cursor.fetchall()
+#     return result
+#         # assign the id from user to fetch the
+#             print('your answer is correct')
+#             cursor.execute("SELECT MAX(id) FROM quiz_user_answer")
+#             max_id = cursor.fetchall()
+#             new_id = max_id[0][0] + 1
+#             userAnswer = [userid,quizid,userAnswerid,isCorrect]
+#             userAnswerTuple = tuple(userAnswer)
+#             print(f'')
+#             sql_update = f"INSERT INTO quiz_user_answer VALUES {userAnswerTuple}"
+#
+#             data = (new_id, question_id, player_answer)
+#             cursor.execute(sql_update, data)
+#
+#         else:
+#             print('your answer is incorrect')
 
 # getTables()
 # player_info = []
@@ -190,5 +275,13 @@ def goFarm():
 # getMatches()
 # getQuestions()
 # getOptionForQuestions(1)
+# answer = int(input("user answer"))
+# user_answer = getOptionForQuestions(1)[answer-1]
+# print(user_answer)
+# isCorrect = False
+# if user_answer[3] == 1:
+#     isCorrect = True
+#
+# userAnswer
 # chooseOptionInCity(inCityGui())
-getRobotsInCity("Helsinki")
+# getRobotsInCity("Helsinki")
