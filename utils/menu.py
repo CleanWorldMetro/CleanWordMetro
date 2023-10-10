@@ -1,26 +1,5 @@
-# import utils.quiz as quiz
 from config import connection
 
-def inCityGui():
-    print("What do you want to do \n"
-          "1. go meet the boss \n"
-          "2. Go farm\n"
-          "3. Go play quiz\n"
-          "4. Do nothing\n")
-    option = input("What do you want to do? (1-4) ")
-    return int(option)
-def chooseOptionInCity(number):
-    if number == 1:
-        print("meet boss")
-    if number == 2:
-        print("go farm")
-    if number == 3:
-        print("let's find some treasure")
-        randomQuestion = quiz.newRandomQuestion
-        print(randomQuestion)
-
-    if number == 4:
-        print("do nothing")
 
 def getPlayers():
     sql = "SELECT * from player"
@@ -50,3 +29,13 @@ def formatedNameList(nameListFromDatabase): # return onlyNameList
 def inputName():
     name = input("Type your username: ")
     return name
+
+def existNameGUI():
+    print("1.New game")
+    print("2.Continue")
+    print("3.Exit program")
+    option = input("Please enter your option(1-3): ")
+    return option
+
+def newGame(name):
+    nameData = [name,]

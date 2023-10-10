@@ -63,8 +63,8 @@ def getPlayerByName(name):
     cursor = connection.cursor()
     cursor.execute(finalSql)
     result = cursor.fetchall()
-
     return result
+
 def getRobotsInCity(city):
     sql = "SELECT robot.id, robot.name, robot.type, robot.pollustat from robot,city"
     moreSql =f"{sql} WHERE robot.location = city.id"
