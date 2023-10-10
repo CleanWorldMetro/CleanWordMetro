@@ -179,7 +179,6 @@ nameInDatabase = getPlayers()
 checkName = isExist(inputName, nameInDatabase )
 def optionPlayer():
     while True:
-
        if isExist(inputName, nameInDatabase) == True:
            print("1.New game")
            print("2.Continue")
@@ -210,6 +209,58 @@ def optionPlayer():
            else:
                 print("Invalid number, please type in range(1/2)")
 # optionPlayer()
+# player = ["name", "resStat", "location", "isInCity", "Energy", "isNew"]
+player = ["Trung", 1, 1, 1, 3, 1]
+# isNewPlayer = player[5]
+# print(isNewPlayer)
+
+def isNewPlayer(player):
+    isNew = player[5]
+    if isNew == 1:
+        return True
+    else:
+        False
+def introducton(name):
+    print(f"Background:\nOur world CLEAN WORLD has been deserted and polluted one since the great war between Humans and Robots."
+          f"\nLuckily there are still some remaining clean cities.Our hero {name} is currently living at Helsinki ,"
+          f"\nOn one sunny day, when our hero was going picnic with his mother, a robot was nearby and it attacked them.\n"
+          f"Luckily, one of the city’s guard is nearby and he was able to save them."
+          f"\nHowever, due to an overexposure with the polluted energy from the robot, our hero’s mother was not able to survive."
+          f"\nIn order to revenge his mother, he decided to destroy all the robots in the world."
+          f"\nThe elder told him that the sauce of all the robot is from the factory in a city beyond the hill."
+          f"\nTherefore, he decided to go to the next city to destroy the robots there")
+
+def menu():
+    name = input("type name")
+    return name
+
+def mainGame():
+    print("main game")
+    return
+def showIntroduction(isNew,player):
+    player = ["Trung", 1, 1, 1, 3, 1]
+    if isNew == 1:
+        introducton(player[0])
+        isNew = 0
+        player = ["Trung",1,1,1,3,isNew]
+        # newPlayerData.update(player[5])
+        # player.update(player[5]
+
+        return player
+    else:
+        return player
+def game():
+    name = menu()
+    # playerTuple = getDataFromName(name)
+    player = ["Trung", 1, 1, 1, 3, 1] # player = formatPlayer(playerTuple)
+    isNew = isNewPlayer(player)
+    newPlayerData = showIntroduction(player,isNew)
+    # return newPlayerData
+    mainGame(newPlayerData)
+
+# game()
+
+
 
 
 
