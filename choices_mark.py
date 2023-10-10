@@ -1,13 +1,6 @@
-import mysql.connector
+import config.connection as connection
 import random
 
-connection = mysql.connector.connect(
-    host= '127.0.0.1',
-    port= 3306,
-    database= 'clean_world',
-    user= 'mark',
-    password= 'metropolia',
-    autocommit=True)
 
 
 def quiz_question_option(question_id):

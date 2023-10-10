@@ -1,12 +1,12 @@
-import mysql.connector
+from config import connection
 
-connection = mysql.connector.connect(
-    host= '127.0.0.1',
-    port= 3306,
-    database= 'clean_world',
-    user= 'mark',
-    password= 'metropolia',
-    autocommit=True)
+# connection = mysql.connector.connect(
+#     host= '127.0.0.1',
+#     port= 3306,
+#     database= 'clean_world',
+#     user= 'mark',
+#     password= 'metropolia',
+#     autocommit=True)
 
 
 def checking(question_id):
@@ -14,6 +14,8 @@ def checking(question_id):
     cursor = connection.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
+    #return a list of option with quiz_question_id = 1
+
     if cursor.rowcount > 0:
         for index, row in enumerate(result, start=1):
             print(f"{index}) {row[1]}")
@@ -38,14 +40,16 @@ def checking(question_id):
         elif question_id == 10:
             answer = 4
         player_answer = int(input('Enter your answer: '))
-        if player_answer == answer:
+        # assign the id from user to fetch the
             print('your answer is correct')
             cursor.execute("SELECT MAX(id) FROM quiz_user_answer")
             max_id = cursor.fetchall()
             new_id = max_id[0][0] + 1
+            userAnswer = [userid,quizid,userAnswerid,isCorrect]
+            userAnswerTuple = tuple(userAnswer)
+            print(f'')
+            sql_update = f"INSERT INTO quiz_user_answer VALUES {userAnswerTuple}"
 
-            sql_update = ("INSERT INTO quiz_user_answer"
-                          "VALUES (%s, 1, %s, %s, 1  )")
             data = (new_id, question_id, player_answer)
             cursor.execute(sql_update, data)
 

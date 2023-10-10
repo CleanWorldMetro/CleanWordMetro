@@ -10,8 +10,8 @@ def main():
         #show normal game
         # show
 
-        option = game.inCityGui()
-        game.chooseOptionInCity(option)
+        option = game.inCityGui() # user choose option when incity
+        game.chooseOptionInCity(option) #
 
 
 main()
