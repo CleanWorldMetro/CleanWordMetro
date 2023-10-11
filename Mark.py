@@ -11,6 +11,7 @@ def question():
     cursor = connection.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
+    #print(result)
     for row in result:
         print(f'Question is: {row[1]}')
         question_id = row[0]
@@ -37,14 +38,19 @@ def user_answer_checking(question_id, answer):
     cursor = connection.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
+    options = []
     for row in result:
         answer_id = f'{row[1]}'
-        print(answer_id)
-
-    if answer_id == 1:
-        print('Correct Answer')
+        answer_id_int = int(answer_id)
+        options.append(answer_id_int)
+    print(options)
+    correct_answer = options.index(1)
+    if correct_answer == answer:
+        print('You are correct')
     else:
-        print('Wrong Answer')
+        print('Wrong')
+
+
 
 
 def get_random_robot():
@@ -83,7 +89,6 @@ def get_current_boss_data(bot_id):
 
 #player_id = int(input('Player id: '))
 #bot_id = int(input('bot id: '))
-
 question_id = question()
 quiz_question_option(question_id)
 answer=user_answer(question_id)
