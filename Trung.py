@@ -214,18 +214,18 @@ def insertUserOption(userOption):
 
 
 
-userId = 1
-questionId = 1
-question(questionId)
-options = getOptionForQuestions(questionId)
-# print(options)
-userAnswer = userAnser(options)
-userAnswer_Id = userAnswer[0]
-
-isCorrect = checking(userAnswer) ## have it
-userOption = [userId,questionId,userAnswer_Id,isCorrect] # Record of User Answer
-print(userOption)
-insertUserOption(userOption)
+# userId = 1
+# questionId = 1
+# question(questionId)
+# options = getOptionForQuestions(questionId)
+# # print(options)
+# userAnswer = userAnser(options)
+# userAnswer_Id = userAnswer[0]
+#
+# isCorrect = checking(userAnswer) ## have it
+# userOption = [userId,questionId,userAnswer_Id,isCorrect] # Record of User Answer
+# print(userOption)
+# insertUserOption(userOption)
 
 
 # user_answer = [1]
@@ -269,7 +269,7 @@ insertUserOption(userOption)
 # # print(newPlayerTuble)
 # # print(newPlayerTuble[0])
 # updatePlayerStat(newPlayerTuble)
-# getPlayerByID(3)
+print(getPlayerByID(3))
 # getRobots()
 # getRobotById(1)
 # getMatches()

@@ -9,7 +9,8 @@ def main():
 
         #show normal game
         # show
-        menu()
+        username =menu()
+        # getPlayerByName(username)
         username = menu.inputName()
         nameListInDatabase = menu.getPlayers()
         onlyNameList = menu.formatedNameList(nameListInDatabase)

@@ -22,3 +22,24 @@ def getPlayerByName(name):
     result = cursor.fetchall()
     return result
 
+
+def getPlayerByID(id):
+    sql = "SELECT * from player "
+    finalSql = sql + "where id =" + str(id)
+    cursor = connection.cursor()
+    cursor.execute(finalSql)
+    result = cursor.fetchall()
+    # print("this is", result)
+    # result =runSQL(sql)
+    # for player in result:
+    #     print(player)
+    return result[0]
+
+# player =  (3, 'testPlayer', 5, 1, 1, 3, 0)
+
+# format a player data from a tuple to a list
+def formatPlayerData(player):
+    formattedData = []
+    for value in player:
+        formattedData.append(value)
+    return formattedData
