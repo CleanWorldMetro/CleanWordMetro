@@ -1,19 +1,24 @@
 from config import connection
 
-def updating():
-    locationId = 1
-    playerId = 1
-    # sql="update player"
-    # sql=sql + " set location="+str(location_id)+""
-    # sql=sql + " where id="+str(player[0])+""
-    sql = f"UPDATE player set location = {locationId} where id = {playerId}"
-    cursor = connection.cursor()
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    if cursor.rowcount>0:
-        return result
-
-updating()
+# def updating():
+#     locationId = 1
+#     playerId = 1
+#     # sql="update player"
+#     # sql=sql + " set location="+str(location_id)+""
+#     # sql=sql + " where id="+str(player[0])+""
+#     sql = f"UPDATE player set location = {locationId} where id = {playerId}"
+#     cursor = connection.cursor()
+#     cursor.execute(sql)
+#     result = cursor.fetchall()
+#     if cursor.rowcount>0:
+#         return result
+#
+# updating()
+location_id = 1
+sql = "SELECT robot.name, robot.type, robot.pollustat,robot.location FROM robot,robottype"
+final = (f"{sql} WHERE robot.type = robottype.id and"
+         f" location= {location_id} and robottype.name ='boss'")
+print(final)
 
 
 # player_name="Huy"

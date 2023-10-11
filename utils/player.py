@@ -11,7 +11,7 @@ def insertNewPlayer (nameData):
 
 def playerToTuple(player):
     playerTuple = tuple(player)
-    print(playerTuple)
+    # print(playerTuple)
     return playerTuple
 
 def getPlayerByName(name):
@@ -20,7 +20,7 @@ def getPlayerByName(name):
     cursor = connection.cursor()
     cursor.execute(finalSql)
     result = cursor.fetchall()
-    return result
+    return result[0]
 
 
 def getPlayerByID(id):
@@ -29,11 +29,12 @@ def getPlayerByID(id):
     cursor = connection.cursor()
     cursor.execute(finalSql)
     result = cursor.fetchall()
+    print(result)
     # print("this is", result)
     # result =runSQL(sql)
     # for player in result:
     #     print(player)
-    return result[0]
+    return result
 
 # player =  (3, 'testPlayer', 5, 1, 1, 3, 0)
 
@@ -43,3 +44,11 @@ def formatPlayerData(player):
     for value in player:
         formattedData.append(value)
     return formattedData
+
+def getCurrentPlayerLocationId(player):
+    currentLocationId = player[3]
+    return currentLocationId
+# playerName = "Huy"
+# # player = getPlayerByName(playerName)
+# print(player)
+# print(getCurrentPlayerLocationId(player))

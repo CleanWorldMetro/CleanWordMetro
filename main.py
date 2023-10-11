@@ -9,7 +9,8 @@ def main():
 
         #show normal game
         # show
-        username =menu()
+        # username =menu()
+        # menu.menu()
         # getPlayerByName(username)
         username = menu.inputName()
         nameListInDatabase = menu.getPlayers()
@@ -17,8 +18,9 @@ def main():
         # print(nameInDatabase)
 
         if menu.isExist(username,onlyNameList) == True:
-            menu.existNameGUI()
+            # menu.existNameGUI()
             option = menu.existNameGUI()
+
             if option == 1:
                 print("Welcome to new game!")
                 break

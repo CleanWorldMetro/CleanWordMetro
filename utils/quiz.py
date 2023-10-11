@@ -1,9 +1,10 @@
 import random
 from config import connection
-import player as playerUti
+import player as playerUtil
+import robot as robotUtil
 
 
-def quiz_questions(location_id):
+def quizQuestionsAtLocation(location_id):
     selectedField = "quiz_question.id, quiz_question.text"
     sql = f"select {selectedField} from city,quiz_question"
     sql = sql + " where quiz_question.location_id=city.id and"
@@ -55,15 +56,21 @@ def checking(userAnswer): ## return true or false for the user answer
         print(" You are not correct")
         return False
 
-def answer(userAnswer,playerStat):
-    # when player answer right, stat +1, wrong stat -1
-    if checking(userAnswer): #
-        playerStat += 1
-    else:
-        playerStat -= 1
-    return playerStat
+def returnCorrectId(checkingResult):
+    if checkingResult:
+        return 1
+    else :
+        return 0
 
-def insertUserOption(userOption):
+# def answer(userAnswer,playerStat):
+#     # when player answer right, stat +1, wrong stat -1
+#     if checking(userAnswer): #
+#         playerStat += 1
+#     else:
+#         playerStat -= 1
+#     return playerStat
+
+def insertUserOptionAnswer(userOption):
     userOptionToTuple = tuple(userOption)
     userOptionColumn = "player_ID,quiz_question_ID,quiz_answer_option_ID,is_correct"
     sql = f"INSERT INTO quiz_user_answer({userOptionColumn}) Value {userOptionToTuple}"
@@ -72,47 +79,74 @@ def insertUserOption(userOption):
     result = cursor.fetchall()
     return result #result user answer as a
 
-def answer(userOption,playerStat):
+def answer(isCorrect,playerStat,bossStat):
     # when player answer right, stat +1, wrong stat -1
-    if checking(userOption): #
+    if isCorrect: #
         playerStat += 1
+        playerStat = min(playerStat,bossStat)
     else:
         playerStat -= 1
-    insertUserOption(userOption)
+        playerStat = max(1, playerStat)
+    # insertUserOption(userOption)
     return playerStat
 
 
 # create a quiz def and return a new stat of player
-def quiz(playerData):
-    playerData = playerUti.formatPlayerData(playerData)
-    print(playerData)
-    userId = playerData[0]
+def quiz(playerData, bossData):
+    #[id,name,resStat,location,isInCity,energy,isNew]
+    formattedPlayerData = playerUtil.formatPlayerData(playerData)
+    # ('Boss1', 2, 5, 1)
+    bossStat = bossData[2]
+    # [3, 'testPlayer', 5, 1, 1, 3, 0]
+    # print(formattedPlayerData)
+    userId = formattedPlayerData[0]
+    userName = formattedPlayerData[1]
+
     # print(userId)
-    location_id = playerData[4]
-    # print(quiz_questions(1))
-    questionList = quiz_questions(location_id)  # get question list from location id
+    location_id = formattedPlayerData[3]
+    # print(location_id)
+    playerResStat = formattedPlayerData[2]
+    # print(quizQuestionsAtLocation(1))
+    questionList = quizQuestionsAtLocation(location_id)  # get question list from location id
     # print(questionList)
     questionId = generateRandomQuestion(questionList)[0]  # get questionID
-    # print(generateRandomQuestion())
-    # question(questionId)
+    # # # print(generateRandomQuestion())
     options = getOptionForQuestions(questionId)  # get options from question ID
-    # # print(options)
+
     userOptionAnswer = userAnswer(options)  # user choose answer
     # print(userOptionAnswer)
     userOptionAnswerId = userOptionAnswer[0]
-    # print(userAnswer)
-    # userAnswer_Id = userOptionAnswer[0]
-    # print(userAnswer_Id)
-    # #
-    # isCorrect = checking(userOptionAnswer)  ## have it
-    # userOptionAnswerData = [userId,questionId,userOptionAnswerId,isCorrect]
-    newPlayerStat = answer()
-    # print(userOption)# Record of User Answer
-    # print(userOption)
-    insertUserOption(userOptionAnswerData)
-    # dataTuple = playerDataToTuple
-    return
+    # print(userOptionAnswerId)
+    userAnswerOptionId = userOptionAnswer[0]
+    # print(userAnswerOptionId)
+    # # #
+    isCorrect = checking(userOptionAnswer)  ## have it
+    isCorrectId = returnCorrectId(isCorrect)
+    # print(isCorrect) # return correct or false
+    # print(isCorrectId) # return 1 or 0
+    newPlayerResStat = answer(isCorrect,playerResStat,bossStat) # return new ResStat
+    formattedPlayerData[2] = newPlayerResStat # asign
 
-player = playerUti.getPlayerByID(3)
+    userOptionAnswerData = [userId,questionId,userOptionAnswerId,isCorrectId]
+    # print(userOptionAnswerData)
+    print(formattedPlayerData)
+    playerDataTuple = playerUtil.playerToTuple(formattedPlayerData)
+    insertUserOptionAnswer(userOptionAnswerData) # insert to database
+    print(playerDataTuple)
+    # print(newPlayerResStat)
+    # # print(userOption)# Record of User Answer
+    # # print(userOption)
+    # insertUserOption(newPlayerStat)
+    # dataTuple = playerDataToTuple
+    return playerDataTuple
+
+userName = "Huy"
+player = playerUtil.getPlayerByName(userName)
 # print(player)
-quiz(player)
+currentLocationId = playerUtil.getCurrentPlayerLocationId(player)
+# print(currentLocationId)
+boss = robotUtil.get_current_boss_data(currentLocationId)
+# print(player)
+# print(boss)
+
+print(quiz(player,boss))
