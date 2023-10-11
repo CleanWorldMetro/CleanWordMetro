@@ -113,8 +113,7 @@ def menu():
         return player # return a player
 
 #return a name
-def newGame(name):
-    nameData = [name,]
+
 
 # player = menu()
 # print("after menu",player)

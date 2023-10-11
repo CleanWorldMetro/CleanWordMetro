@@ -1,7 +1,7 @@
 import random
 from config import connection
-import player as playerUtil
-import robot as robotUtil
+import utils.player as playerUtil
+import utils.robot as robotUtil
 
 
 def quizQuestionsAtLocation(location_id):
@@ -141,13 +141,13 @@ def quiz(playerData, bossData):
     # dataTuple = playerDataToTuple
     return formattedPlayerData
 
-userName = "Huy"
-player = playerUtil.getPlayerByName(userName)
-# # print(player)
-currentLocationId = playerUtil.getCurrentPlayerLocationId(player)
-# print(currentLocationId)
-boss = robotUtil.get_current_boss_data(currentLocationId)
-# # print(player)
-# # print(boss)
-#
-print(quiz(player,boss))
+# userName = "Huy"
+# player = playerUtil.getPlayerByName(userName)
+# # # print(player)
+# currentLocationId = playerUtil.getCurrentPlayerLocationId(player)
+# # print(currentLocationId)
+# boss = robotUtil.get_current_boss_data(currentLocationId)
+# # # print(player)
+# # # print(boss)
+# #
+# print(quiz(player,boss))

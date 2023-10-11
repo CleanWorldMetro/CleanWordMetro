@@ -49,6 +49,25 @@ def getCurrentPlayerLocationId(player):
     currentLocationId = player[3]
     return currentLocationId
 
+def changeIsNew(player):
+    isNew = player[6]
+    if isNew == 0:
+        isNew = 1
+    else:
+        isNew = 0
+    return isNew
+
+def updateIsNew(player):
+    currentPlayerId = player[0]
+    updateIsNew = changeIsNew(player)
+    sql = "update player"
+    moreSql = sql + " SET isNew = " + str(updateIsNew)
+    finaSql = moreSql + " where id= "  + str(currentPlayerId) + ""
+    cursor = connection.cursor()
+    cursor.execute(finaSql)
+    result = cursor.fetchall()
+    return result
+
 def updateStat(player, newStat):
     currentPlayerId = player[0]
     sql = "update player"
@@ -71,6 +90,14 @@ def setDefaultData(player):
     result = cursor.fetchall()
     return result
 
+def isNewPlayer(player):
+    isNew = player[6]
+    if isNew == 1:
+        return True
+    else:
+        return False
+
+
 
 # def updating(player):
 #     location_id = player[3]
@@ -87,9 +114,10 @@ def setDefaultData(player):
 # # player = getPlayerByName(playerName)
 # print(player)
 # print(getCurrentPlayerLocationId(player))
-name = "Huy"
+# name = "Huy"
 # player = getPlayerByName(name)
-# player = (2, 'Huy', 2, 1, 0, 3, 0)
+# # player = (2, 'Huy', 2, 1, 0, 3, 0)
+# print(updateIsNew(player))
 # updateStat(player,3)
 # print(getPlayerByName("Huy"))
 # print(player)

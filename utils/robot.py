@@ -1,6 +1,7 @@
 from config import connection
 
-def get_current_boss_data(locationId):
+def get_current_boss_data(player):
+    locationId = player[3]
     # sql = "SELECT name, type, pollustat,location FROM robot where id=" + str(bot_id)
 
     sql = "SELECT robot.name, robot.type, robot.pollustat,robot.location FROM robot,robottype"
