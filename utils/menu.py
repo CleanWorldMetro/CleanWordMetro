@@ -52,7 +52,7 @@ def existNameGUI(name):
 def optionWithExistNameGUI(option,username):
     if option == "1":
         oldPlayerData = playerUtils.getPlayerByName(username)
-        playerUtils.setDefaultData(oldPlayerData,)
+        playerUtils.setDefaultData(oldPlayerData)
         print(f"Welcome to new game! {username}")
         playerData = playerUtils.getPlayerByName(username)
         formattedPlayerData = playerUtils.formatPlayerData(playerData)
@@ -62,7 +62,9 @@ def optionWithExistNameGUI(option,username):
     elif option == "2":
         playerData = playerUtils.getPlayerByName(username)
         print("Here is your point and your stamina !")
-        return playerData
+        formattedPlayerData = playerUtils.formatPlayerData(playerData)
+
+        return formattedPlayerData
     elif option == "3":
         print("End process")
         sys.exit()
@@ -84,7 +86,9 @@ def optionNonExistGUI(option,username):
             print("New User has been created Successfully!")
             print(f"Welcome to Clean World!!! {username}")
             newPlayerData= playerUtils.getPlayerByName(username)
-            return newPlayerData
+            newFormattedPlayerData = playerUtils.formatPlayerData(newPlayerData)
+
+            return newFormattedPlayerData
 
         elif option == "2":
             print("End process")

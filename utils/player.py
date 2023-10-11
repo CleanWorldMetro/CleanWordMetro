@@ -29,12 +29,13 @@ def getPlayerByID(id):
     cursor = connection.cursor()
     cursor.execute(finalSql)
     result = cursor.fetchall()
-    print(result)
+    # print(result)
     # print("this is", result)
     # result =runSQL(sql)
     # for player in result:
     #     print(player)
-    return result
+    formattedResult = formatPlayerData(result[0])
+    return formattedResult
 
 # player =  (3, 'testPlayer', 5, 1, 1, 3, 0)
 

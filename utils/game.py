@@ -1,5 +1,6 @@
 # import utils.quiz as quiz
 from config import connection
+
 import utils.player as playerUtil
 import utils.quiz as quizUtil
 import utils.robot as robotUtil
@@ -64,11 +65,14 @@ def showIntroduction(player):
         playerUtil.updateIsNew(player)
 def game(player):
     while True:
-        showIntroduction(player)
+        playerId = player[0]
         boss = robotUtil.get_current_boss_data(player)
+        updatedPlayer =playerUtil.getPlayerByID(playerId)
+        print("This is updated Player Data", updatedPlayer)
+        showIntroduction(updatedPlayer)
 
         playerOption = inCityGui()
-        chooseOptionInCity(playerOption,player,boss)
+        chooseOptionInCity(playerOption,updatedPlayer,boss)
 
     # return playerOption
 

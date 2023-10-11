@@ -1,3 +1,4 @@
+from config import connection
 
 import utils.menu as menuUtil
 import utils.player as playerUtil
@@ -8,8 +9,9 @@ def main():
     while True:
 
         player = menuUtil.menu()
-        option = gameUtil.game(player)
-        print(option)
+        # print("hello from main",player)
+        gameUtil.game(player)
+        # print(option)
 
 
 

@@ -100,6 +100,7 @@ def quiz(playerData, bossData):
     # [3, 'testPlayer', 5, 1, 1, 3, 0]
     # print(formattedPlayerData)
     userId = formattedPlayerData[0]
+    print(formattedPlayerData)
     userName = formattedPlayerData[1]
 
     # print(userId)
