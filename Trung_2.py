@@ -15,10 +15,12 @@ from config import connection
 #
 # updating()
 location_id = 1
-sql = "SELECT robot.name, robot.type, robot.pollustat,robot.location FROM robot,robottype"
-final = (f"{sql} WHERE robot.type = robottype.id and"
-         f" location= {location_id} and robottype.name ='boss'")
-print(final)
+currentPlayerId = 1
+playerStat = 2
+sql = "update player"
+moreSql = sql + " SET resStat = " + str(playerStat)
+finaSql = moreSql + " where id =" + str(currentPlayerId) + ""
+print(finaSql)
 
 
 # player_name="Huy"

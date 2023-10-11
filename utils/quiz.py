@@ -91,7 +91,7 @@ def answer(isCorrect,playerStat,bossStat):
     return playerStat
 
 
-# create a quiz def and return a new stat of player
+# create a quiz def and return a new Data Tuple of Player
 def quiz(playerData, bossData):
     #[id,name,resStat,location,isInCity,energy,isNew]
     formattedPlayerData = playerUtil.formatPlayerData(playerData)
@@ -129,24 +129,25 @@ def quiz(playerData, bossData):
 
     userOptionAnswerData = [userId,questionId,userOptionAnswerId,isCorrectId]
     # print(userOptionAnswerData)
-    print(formattedPlayerData)
+    # print(formattedPlayerData)
     playerDataTuple = playerUtil.playerToTuple(formattedPlayerData)
     insertUserOptionAnswer(userOptionAnswerData) # insert to database
-    print(playerDataTuple)
+    playerUtil.updateStat(playerDataTuple,newPlayerResStat)# insert to database user answer
+    # print(playerDataTuple)
     # print(newPlayerResStat)
     # # print(userOption)# Record of User Answer
     # # print(userOption)
     # insertUserOption(newPlayerStat)
     # dataTuple = playerDataToTuple
-    return playerDataTuple
+    return formattedPlayerData
 
 userName = "Huy"
 player = playerUtil.getPlayerByName(userName)
-# print(player)
+# # print(player)
 currentLocationId = playerUtil.getCurrentPlayerLocationId(player)
 # print(currentLocationId)
 boss = robotUtil.get_current_boss_data(currentLocationId)
-# print(player)
-# print(boss)
-
+# # print(player)
+# # print(boss)
+#
 print(quiz(player,boss))

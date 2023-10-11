@@ -48,7 +48,48 @@ def formatPlayerData(player):
 def getCurrentPlayerLocationId(player):
     currentLocationId = player[3]
     return currentLocationId
+
+def updateStat(player, newStat):
+    currentPlayerId = player[0]
+    sql = "update player"
+    moreSql = sql + " SET resStat = " + str(newStat)
+    finaSql = moreSql + " where id= "  + str(currentPlayerId) + ""
+    cursor = connection.cursor()
+    cursor.execute(finaSql)
+    result = cursor.fetchall()
+    return result
+
+def setDefaultData(player):
+    currentPlayerId = player[0]
+    defaultIsNew = 1
+    defaultResStat = 1
+    sql = "update player"
+    moreSql = f"{sql} SET resStat = {str(defaultResStat)}, isNew = {defaultIsNew}"
+    finaSql = moreSql + " where id= "  + str(currentPlayerId) + ""
+    cursor = connection.cursor()
+    cursor.execute(finaSql)
+    result = cursor.fetchall()
+    return result
+
+
+# def updating(player):
+#     location_id = player[3]
+#     sql = "update player"
+#     moresql = sql + " set location=" + str(location_id) + ""
+#     finaSql = moresql + " where id=" + str(player[0]) + ""
+#     cursor = connection.cursor()
+#     cursor.execute(finaSql)
+#     result = cursor.fetchall()
+#     if cursor.rowcount > 0:
+#         return result
+
 # playerName = "Huy"
 # # player = getPlayerByName(playerName)
 # print(player)
 # print(getCurrentPlayerLocationId(player))
+name = "Huy"
+# player = getPlayerByName(name)
+# player = (2, 'Huy', 2, 1, 0, 3, 0)
+# updateStat(player,3)
+# print(getPlayerByName("Huy"))
+# print(player)
