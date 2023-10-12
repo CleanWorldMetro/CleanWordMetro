@@ -20,7 +20,7 @@ def get_current_boss_data(player):
 
 def getRobotsByLocation(player):
     locationId = player[3]
-    sql = "SELECT robot.name, robot.type, robot.pollustat,robot.location FROM robot,robottype"
+    sql = "SELECT robot.id,robot.name, robot.type, robot.pollustat,robot.location FROM robot,robottype"
     final = (f"{sql} WHERE robot.type = robottype.id and"
              f" location= {locationId} ")
     cursor = connection.cursor()
@@ -33,7 +33,7 @@ def filterRobotList(player,robotList):
     playerStat = player[2]
     filteredList = []
     for robot in robotList:
-        robotStat = robot[2]
+        robotStat = robot[3]
         if robotStat >= playerStat:
             filteredList.append(robot)
     # print(filteredList)
@@ -46,7 +46,7 @@ def getRandomRobot(robotList):
     return randomRobot
 
 def getRobotType(robot):
-    robotType = robot[1]
+    robotType = robot[2]
     return robotType
 
 def isNormalRobot(robotType):
@@ -70,7 +70,7 @@ def isWinAgainstBossRobot(playerStat,robotStat):
 
 def isWin(player,robot):
     playerStat = player[2]
-    robotStat = robot[2]
+    robotStat = robot[3]
     robotType = getRobotType(robot)
     if isNormalRobot(robotType):
         print("You have meet a normal robot")
@@ -80,6 +80,21 @@ def isWin(player,robot):
         isWin = isWinAgainstBossRobot(playerStat,robotStat)
     return isWin ## if player win against normal robot or boss robot
 
+def getIsWinId(isWin):
+    if isWin:
+        return 1
+    else:
+        return 0
+
+def insertMatchData(matchData):
+    matchDataTuple = tuple(matchData)
+    matchColumns = "player_id, robot_id, isWin"
+    sql = f"INSERT INTO match_game ({matchColumns}) Value {matchDataTuple}"
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    print("Match data inserted successfully")
+    return result #result user answer as a
 
 def match(player,robot,boss):
     playerStat = player[2]
@@ -132,6 +147,19 @@ def fight(player,boss):
     randomRobot = getRandomRobot(filteredList)  # get random robot from filtered list
     # print("This is random robot", getRandomRobot(filteredList))
     newPlayerStat = match(player, randomRobot, boss)
+    isWinId = getIsWinId(isWin(player,randomRobot))
+    playerId = player[0]
+    robotId = randomRobot[0]
+    print(playerId)
+    print(robotId)
+    print(isWinId)
+    matchData = [playerId,robotId,isWinId]
+    print(matchData)
+    # matchDataTuple = playerUtil.playerToTuple(matchData)
+    insertMatchData(matchData)
+
+
+
     # print("This is match with robot), ",newPlayerStat)
     playerUtil.updateStat(player, newPlayerStat)
 
@@ -145,4 +173,5 @@ def fight(player,boss):
 # player_name = "Trung"
 # player = playerUtil.getPlayerByName(player_name)
 # boss = get_current_boss_data(player)
-# updatePlayerData = fight(player,boss)
+# # updatePlayerData = fight(player,boss)
+# fight(player,boss)

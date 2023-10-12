@@ -14,13 +14,18 @@ from config import connection
 #         return result
 #
 # updating()
-location_id = 1
-currentPlayerId = 1
-playerStat = 2
-sql = "update player"
-moreSql = sql + " SET resStat = " + str(playerStat)
-finaSql = moreSql + " where id =" + str(currentPlayerId) + ""
-print(finaSql)
+# location_id = 1
+# currentPlayerId = 1
+# playerStat = 2
+# sql = "update player"
+# moreSql = sql + " SET resStat = " + str(playerStat)
+# finaSql = moreSql + " where id =" + str(currentPlayerId) + ""
+# print(finaSql)
+
+matchDataTuple = (1, 5, 1)
+matchColumns = "player_id,robot_id,isWin"
+sql = f"INSERT INTO match_game ({matchColumns}) Value {matchDataTuple}"
+print(sql)
 
 
 # player_name="Huy"
