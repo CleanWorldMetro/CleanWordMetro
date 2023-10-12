@@ -74,12 +74,20 @@ def updateStat(player, newStat):
     currentPlayerId = player[0]
     sql = "update player"
     moreSql = sql + " SET resStat = " + str(newStat)
-    finaSql = moreSql + " where id= "  + str(currentPlayerId) + ""
+    finalSql = moreSql + " where id= "  + str(currentPlayerId) + ""
     cursor = connection.cursor()
-    cursor.execute(finaSql)
+    cursor.execute(finalSql)
     result = cursor.fetchall()
     print("Your stat have been updated")
     return result
+
+def showPlayerInfo(player):
+    playerName = player[1] # playerName
+    playerStat = player[2] # playerStat
+    playerLocation = player[3] #playerLocation
+    playerInfo = f"player: {playerName} -- Stat: {playerStat} -- Location: {playerLocation}"
+    print(playerInfo)
+    return
 
 def setDefaultData(player):
     currentPlayerId = player[0]
@@ -102,6 +110,8 @@ def isNewPlayer(player):
 
 
 
+
+
 # def updating(player):
 #     location_id = player[3]
 #     sql = "update player"
@@ -119,6 +129,7 @@ def isNewPlayer(player):
 # print(getCurrentPlayerLocationId(player))
 # name = "Huy"
 # player = getPlayerByName(name)
+# showPlayerInfo(player)
 # # player = (2, 'Huy', 2, 1, 0, 3, 0)
 # print(updateIsNew(player))
 # updateStat(player,3)

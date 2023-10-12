@@ -4,6 +4,7 @@ from config import connection
 import utils.player as playerUtil
 import utils.quiz as quizUtil
 import utils.robot as robotUtil
+import utils.city as cityUtil
 
 
 def inCityGui():
@@ -14,14 +15,16 @@ def inCityGui():
           "4. Do nothing\n")
     option = input("What do you want to do? (1-4) ")
     return int(option)
+
+
 def chooseOptionInCity(number,player,boss):
     if number == 1:
-        print("meet boss")
+        print("Let go to boss room")
     if number == 2:
-        print("go farm")
+        print("Let's defeat some robots!")
         robotUtil.fight(player,boss)
     if number == 3:
-        print("let's find some treasure")
+        print("let's answer some quiz!")
         quizUtil.quiz(player,boss)
     if number == 4:
         print("do nothing")
@@ -67,9 +70,12 @@ def showIntroduction(player):
 def game(player):
     while True:
         playerId = player[0]
-        boss = robotUtil.get_current_boss_data(player)
+        boss = robotUtil.getCurrentBossData(player)
+        city =  cityUtil.getCurrentCityData(player)
         updatedPlayer =playerUtil.getPlayerByID(playerId)
-        print("This is updated Player Data", updatedPlayer)
+        # playerInfo = playerUtil.showPlayerInfo(updatedPlayer)
+        print(f"Welcome to {city[1]}")
+        playerUtil.showPlayerInfo(updatedPlayer)
         showIntroduction(updatedPlayer)
 
         playerOption = inCityGui()
@@ -80,5 +86,7 @@ def game(player):
 
 #
 # player = playerUtil.getPlayerByName("Trung")
+# boss = robotUtil.getCurrentBossData(player)
+# # print(boss)
 # formatedData = playerUtil.formatPlayerData(player)
 # game(player)

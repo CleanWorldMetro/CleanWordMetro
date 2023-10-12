@@ -14,7 +14,7 @@ def getPlayers():
     return result
 
 def isExist(username,namesInDatabase ):
-    if username in namesInDatabase:
+    if username.lower() in namesInDatabase:
         return True
     else:
         return False
@@ -22,7 +22,9 @@ def isExist(username,namesInDatabase ):
 def formatedNameList(nameListFromDatabase): # return onlyNameList
     onlyNameList = []
     for nameData in nameListFromDatabase:
-        nameInData = nameData[1]
+        nameInData = nameData[1].lower() # return nameList in lowercase
+        # print('this is lower case',
+        #       nameData[1].lower())
         # print(nameInData)
         onlyNameList.append(nameInData)
     # print(onlyNameList)
@@ -61,7 +63,7 @@ def optionWithExistNameGUI(option,username):
         # return a newData for this user
     elif option == "2":
         playerData = playerUtils.getPlayerByName(username)
-        print("Here is your point and your stamina !")
+        # print("Here is your point and your stamina !")
         formattedPlayerData = playerUtils.formatPlayerData(playerData)
 
         return formattedPlayerData
