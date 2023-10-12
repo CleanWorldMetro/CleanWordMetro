@@ -78,7 +78,7 @@ def game(player):
     # return playerOption
 
 
-
-player = playerUtil.getPlayerByName("Trung")
-formatedData = playerUtil.formatPlayerData(player)
-game(player)
+#
+# player = playerUtil.getPlayerByName("Trung")
+# formatedData = playerUtil.formatPlayerData(player)
+# game(player)

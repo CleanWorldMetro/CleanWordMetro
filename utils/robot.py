@@ -118,14 +118,14 @@ def isCleanCity(player,boss):
     win = isWin(player,boss)
     print("You have defeate the guardian",win)
     ## insert match
-
+    return
 
 def cleanCity (player,boss):
     # if isCleanCity
     ## change location Id
     #update location ID
     #infrom go to other city
-
+    return
 
 # get_current_boss_data(1)
 
