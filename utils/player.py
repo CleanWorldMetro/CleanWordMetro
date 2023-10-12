@@ -20,7 +20,8 @@ def getPlayerByName(name):
     cursor = connection.cursor()
     cursor.execute(finalSql)
     result = cursor.fetchall()
-    return result[0]
+    formattedPlayerData = formatPlayerData(result[0])
+    return formattedPlayerData
 
 
 def getPlayerByID(id):
@@ -77,6 +78,7 @@ def updateStat(player, newStat):
     cursor = connection.cursor()
     cursor.execute(finaSql)
     result = cursor.fetchall()
+    print("Your stat have been updated")
     return result
 
 def setDefaultData(player):

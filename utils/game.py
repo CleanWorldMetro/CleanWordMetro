@@ -19,6 +19,7 @@ def chooseOptionInCity(number,player,boss):
         print("meet boss")
     if number == 2:
         print("go farm")
+        robotUtil.fight(player,boss)
     if number == 3:
         print("let's find some treasure")
         quizUtil.quiz(player,boss)
@@ -78,6 +79,6 @@ def game(player):
 
 
 
-# player = playerUtil.getPlayerByName("Trung")
-# formatedData = playerUtil.formatPlayerData(player)
-# game(player)
+player = playerUtil.getPlayerByName("Trung")
+formatedData = playerUtil.formatPlayerData(player)
+game(player)
