@@ -57,9 +57,11 @@ def isBossRobot(robotType):
     if robotType == 2:
         return True
 
+# (3, 'Robot3', 1, 3, 1, 'Normal Robot is normal')
 def isWinAgainstNormalRobot(player,robot):
     playerStat = player[2]
-    robotStat = robot[4]
+    # print(robot)
+    robotStat = robot[3]
     if playerStat+1 >= robotStat:
         return True
     else:
@@ -67,7 +69,8 @@ def isWinAgainstNormalRobot(player,robot):
 
 def isWinAgainstBossRobot(player,boss):
     playerStat = player[2]
-    bossStat = boss[4]
+    # robot(boss)
+    bossStat = boss[3]
     if playerStat == bossStat:
         return True
     else:
