@@ -114,8 +114,17 @@ def match(player,robot,boss):
     return  playerStat
 
 def isCleanCity(player,boss):
+    #edit logic so that player Stat go to boss Stat + 1
     win = isWin(player,boss)
     print("You have defeate the guardian",win)
+    ## insert match
+
+
+def cleanCity (player,boss):
+    # if isCleanCity
+    ## change location Id
+    #update location ID
+    #infrom go to other city
 
 
 # get_current_boss_data(1)
