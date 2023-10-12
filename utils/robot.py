@@ -127,11 +127,11 @@ def match(player,robot,boss):
     # robotType = getRobotType(robot)
     win = isWin(player,robot)
 
-    if win:
-        if isBoss:
-            print("Boss walks away")
-        else:
-            print("Congrat! You have win")
+    if win and isBoss:
+        # if isBoss:
+        print("Boss walks away")
+    elif win and not isBoss :
+        print("Congrat! You have win")
         playerStat += 1
         playerStat = min(playerStat,bossStat)
 
