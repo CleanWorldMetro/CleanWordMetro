@@ -145,7 +145,7 @@ def match(player,robot,boss):
     return  [playerStat,win]
 
 
-def isDefeatBoss(player, boss):  # have we defeat boss
+def isWinBoss(player, boss):  # have we defeat boss
     winBoss = isWinAgainstBossRobot(player, boss)
     if winBoss:
         return True
@@ -154,9 +154,9 @@ def isDefeatBoss(player, boss):  # have we defeat boss
 
 
 ## return newplayer Stat when defeat boss
-def defeatBoss(player, boss):
+def winBoss(player, boss):
     playerStat = player[3]
-    if isDefeatBoss(player, boss):  ##defeat robot
+    if isWinBoss(player, boss):  ##defeat robot
         playerStat += 1
     return playerStat
 
@@ -174,7 +174,21 @@ def defeatBoss(player, boss):
 # playerUtil.updateStat(player,newPlayerStat)
 
 def fightBoss(player,boss):
-    boss = getCurrentBossData(player)
+    # boss = getCurrentBossData(player)
+    winBoss =isWinBoss(player,boss)
+    print(winBoss)
+    # if winBoss:
+        # change city.isClean from 0 to 1 :
+        # update new city.isClean status
+        # check if this city is the last one in the city list >> all city clean >> win:
+        # else:
+        # change player.location to next 1 ( check
+        # update player.location to database
+    # else:
+        #print(" you are not strong enough")
+        #print(" the boss letting you go!.:")
+
+
     # isCleanCity(player,boss)
 def fight(player,boss):
 
@@ -213,9 +227,9 @@ def fight(player,boss):
 
 #player meet robot
 # print("THis is robot List", robotList)
-# player_name = "Trung"
-# player = playerUtil.getPlayerByName(player_name)
-# boss = getCurrentBossData(player)
+player_name = "Trung"
+player = playerUtil.getPlayerByName(player_name)
+boss = getCurrentBossData(player)
 # # robots = getRobotsByLocation(player)
 # # print(robots)
 # # print(boss)

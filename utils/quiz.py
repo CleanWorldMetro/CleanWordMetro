@@ -96,7 +96,7 @@ def quiz(playerData, bossData):
     #[id,name,resStat,location,isInCity,energy,isNew]
     formattedPlayerData = playerUtil.formatPlayerData(playerData)
     # ('Boss1', 2, 5, 1)
-    bossStat = bossData[2]
+    bossStat = bossData[3]
     # [3, 'testPlayer', 5, 1, 1, 3, 0]
     # print(formattedPlayerData)
     userId = formattedPlayerData[0]
@@ -125,7 +125,9 @@ def quiz(playerData, bossData):
     isCorrectId = returnCorrectId(isCorrect)
     # print(isCorrect) # return correct or false
     # print(isCorrectId) # return 1 or 0
-    newPlayerResStat = answer(isCorrect,playerResStat,bossStat) # return new ResStat
+    newPlayerResStat = answer(isCorrect,playerResStat,bossStat)
+
+    # return new ResStat
     formattedPlayerData[2] = newPlayerResStat # asign
 
     userOptionAnswerData = [userId,questionId,userOptionAnswerId,isCorrectId]
