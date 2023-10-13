@@ -1,4 +1,6 @@
 # import utils.quiz as quiz
+import sys
+
 from config import connection
 
 import utils.player as playerUtil
@@ -8,12 +10,18 @@ import utils.city as cityUtil
 
 
 def inCityGui():
+    # print("What do you want to do \n"
+    #       "1. go meet the boss \n"
+    #       "2. Go farm\n"
+    #       "3. Go play quiz\n"
+    #       "4. Do nothing\n")
     print("What do you want to do \n"
           "1. go meet the boss \n"
           "2. Go farm\n"
           "3. Go play quiz\n"
-          "4. Do nothing\n")
-    option = input("What do you want to do? (1-4) ")
+          "4. Do nothing\n"
+          "5. Quit\n")
+    option = input("What do you want to do? (1-5) ")
     return int(option)
 
 
@@ -28,6 +36,10 @@ def chooseOptionInCity(number,player,boss):
         quizUtil.quiz(player,boss)
     if number == 4:
         print("do nothing")
+    if number == 5:
+        print("Thank you for playing.")
+        print("See you again.")
+        sys.exit()
 
 def getPlayers():
     sql = "SELECT * from player"
