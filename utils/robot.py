@@ -80,7 +80,7 @@ def isWinAgainstBossRobot(player,boss):
 # def insertMatch(matchInfo):
 
 
-def isWin(player,robot):
+def isWinWhenFarm(player,robot):
 
     robotType = getRobotType(robot)
     if isNormalRobot(robotType):
@@ -145,38 +145,47 @@ def match(player,robot,boss):
     return  [playerStat,win]
 
 
-def isWinBoss(player, boss):  # have we defeat boss
-    winBoss = isWinAgainstBossRobot(player, boss)
-    if winBoss:
-        return True
-    else:
-        return False
+# def isWinBoss(player, boss):  # have we defeat boss
+#     winBoss = isWinAgainstBossRobot(player, boss)
+#     if winBoss:
+#         return True
+#     else:
+#         return False
 
 
 ## return newplayer Stat when defeat boss
-def winBoss(player, boss):
-    playerStat = player[3]
-    if isWinBoss(player, boss):  ##defeat robot
+def fightBossGuardian(isWinBoss,player):
+    playerStat = player[2]
+    if isWinBoss:
+        print("You have defeat the Boss Robot")
         playerStat += 1
     return playerStat
 
+# def defeatBoss(player,boss):
+#     #edit logic so that player Stat go to boss Stat + 1
+#     # isClean = city[3] # return stat of isClean
+#     # playerStat= player[2]
+#     # bossStat = boss[3]
+#     win = robotUtil.isWinAgainstBossRobot(player,boss)
+#     if win:
+#         return True
+#     # print("You have defeate the guardian",win)
+#     ## insert match
+#     else:
+#         return False
 
-# get_current_boss_data(1)
 
-# player_name="Huy"
-# player=playerUtil.getPlayerByName(player_name)
-# print(player)
-# robotList = getRobotsByLocation(player) # get robot List at a location
-# boss = get_current_boss_data(player) # get boss at a location
-# filteredList = filterRobotList(player,robotList) # filter robot list based on player stat
-# randomRobot = getRandomRobot(filteredList) # get random robot from filtered list
-# newPlayerStat = match(player,randomRobot,boss)
-# playerUtil.updateStat(player,newPlayerStat)
+
+
 
 def fightBoss(player,boss):
     # boss = getCurrentBossData(player)
-    winBoss =isWinBoss(player,boss)
-    print(winBoss)
+    ## up date player stat to 6:
+    isWinBoss = isWinAgainstBossRobot(player,boss)
+    if isWinBoss:
+        newPlayerStat = fightBossGuardian(isWinBoss,player)
+        playerUtil.updateStat(player,newPlayerStat)
+        print(newPlayerStat)
     # if winBoss:
         # change city.isClean from 0 to 1 :
         # update new city.isClean status
@@ -184,11 +193,11 @@ def fightBoss(player,boss):
         # else:
         # change player.location to next 1 ( check
         # update player.location to database
-    # else:
-        #print(" you are not strong enough")
-        #print(" the boss letting you go!.:")
+    else:
+        print(" you are not strong enough")
+        print(" the boss letting you go!.:")
 
-
+    return isWinBoss
     # isCleanCity(player,boss)
 def fight(player,boss):
 
@@ -209,12 +218,8 @@ def fight(player,boss):
     isWinId = getIsWinId(isWin)
     playerId = player[0]
     robotId = randomRobot[0]
-    # print(playerId)
-    # print(robotId)
-    # print(isWinId)
     matchData = [playerId,robotId,isWinId]
-    # print(matchData)
-    # matchDataTuple = playerUtil.playerToTuple(matchData)
+
     insertMatchData(matchData)
 
     # print("This is match with robot), ",newPlayerStat)
@@ -232,8 +237,11 @@ player = playerUtil.getPlayerByName(player_name)
 boss = getCurrentBossData(player)
 # # robots = getRobotsByLocation(player)
 # # print(robots)
-# # print(boss)
+# print(boss)
 # # bossInfo = showRobotInfo(boss)
 # # # updatePlayerData = fight(player,boss)
-# fight(player,boss)
-# fightBoss(player,boss)
+print(player)
+player[2] = 5
+print(player)
+resultOfFightBoss = fightBoss(player,boss)
+print(resultOfFightBoss)

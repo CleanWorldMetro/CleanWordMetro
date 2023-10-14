@@ -119,29 +119,21 @@ def quiz(playerData, bossData):
     userOptionAnswerId = userOptionAnswer[0]
     # print(userOptionAnswerId)
     userAnswerOptionId = userOptionAnswer[0]
-    # print(userAnswerOptionId)
-    # # #
+
     isCorrect = checking(userOptionAnswer)  ## have it
     isCorrectId = returnCorrectId(isCorrect)
-    # print(isCorrect) # return correct or false
-    # print(isCorrectId) # return 1 or 0
+
     newPlayerResStat = answer(isCorrect,playerResStat,bossStat)
 
     # return new ResStat
     formattedPlayerData[2] = newPlayerResStat # asign
 
     userOptionAnswerData = [userId,questionId,userOptionAnswerId,isCorrectId]
-    # print(userOptionAnswerData)
-    # print(formattedPlayerData)
+
     playerDataTuple = playerUtil.playerToTuple(formattedPlayerData)
     insertUserOptionAnswer(userOptionAnswerData) # insert to database
     playerUtil.updateStat(playerDataTuple,newPlayerResStat)# insert to database user answer
-    # print(playerDataTuple)
-    # print(newPlayerResStat)
-    # # print(userOption)# Record of User Answer
-    # # print(userOption)
-    # insertUserOption(newPlayerStat)
-    # dataTuple = playerDataToTuple
+
     return formattedPlayerData
 
 # userName = "Huy"

@@ -26,7 +26,7 @@ def getPlayerByName(name):
 
 def getPlayerByID(id):
     sql = "SELECT * from player "
-    finalSql = sql + "where id =" + str(id)
+    finalSql = sql + "where id  =" + str(id)
     cursor = connection.cursor()
     cursor.execute(finalSql)
     result = cursor.fetchall()
@@ -130,8 +130,9 @@ def isNewPlayer(player):
 # name = "Huy"
 # player = getPlayerByName(name)
 # showPlayerInfo(player)
-# # player = (2, 'Huy', 2, 1, 0, 3, 0)
-# print(updateIsNew(player))
-# updateStat(player,3)
-# print(getPlayerByName("Huy"))
-# print(player)
+# player = (2, 'Huy', 2, 1, 0, 3, 0)
+# # print(updateIsNew(player))
+# # updateStat(player,3)
+# # print(getPlayerByName("Huy"))
+# # print(player)
+# getPlayerByID(1)

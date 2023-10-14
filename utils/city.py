@@ -1,6 +1,8 @@
 from config import connection
 import utils.player as playerUtil
 import utils.robot as robotUtil
+import utils.country as countryUtil
+import utils.sql as sqlUtil
 
 def getCurrentCityData(player):
     playeriD = player[0]
@@ -12,18 +14,18 @@ def getCurrentCityData(player):
     # finalSql = sql + "where name = '" +name + "'"
     return result[0]
 
-def isCleanCity(player,boss):
-    #edit logic so that player Stat go to boss Stat + 1
-    # isClean = city[3] # return stat of isClean
-    # playerStat= player[2]
-    # bossStat = boss[3]
-    win = robotUtil.isWinAgainstBossRobot(player,boss)
-    if win:
-        return True
-    # print("You have defeate the guardian",win)
-    ## insert match
-    else:
-        return False
+
+
+def getCityListInOneCountry(country):
+    currentCountryId = country[0]
+    selectedColumns = "city.name"
+    sql = "Select city.name from city,country"
+    finalSql = f"{sql} WHERE city.country = country.id"
+    print(finalSql)
+    result = sqlUtil.executeSql(finalSql)
+    return result
+
+
 
 def changeIsClean(city):
     isClean = city[3]
@@ -33,6 +35,18 @@ def changeIsClean(city):
     else:  #future implement, can change isClean back to 0
         isClean = 0
     return  isClean
+
+def changeIsBossDefeatInCity(isBossDefeat,city):
+    bossStatus = city [4]
+    if isBossDefeat:
+        bossDefeat = 1
+    else:
+        bossDefeat = 0
+    return bossDefeat
+
+def cleanCity(city):
+    return
+
 
 def updateIsClean (city):
     currentCityId = city[0]
@@ -49,10 +63,30 @@ def updateIsClean (city):
 
     return result
 
-# player = playerUtil.getPlayerByName("Trung")
-# boss = robotUtil.getCurrentBossData(player)
+def isLastCity(currentCity, cityList):
+    currentCityName = currentCity[1]
+    if currentCityName == cityList[len(cityList)-1]:
+        return True
+    else:
+        return False
+
+def formatCityList(cityListData):
+    formattedList = []
+    for city in cityListData:
+        formattedList.append(city[0])
+    return  tuple(formattedList) # return a tuple of citylist
+
+
+player = playerUtil.getPlayerByName("Trung")
+boss = robotUtil.getCurrentBossData(player)
 # print(boss)
-# city = getCurrentCityData(player)
+city = getCurrentCityData(player)
+# city = "Vantaa"
+currentCountry = countryUtil.getCurrentCountryData(player)
+cityListData = getCityListInOneCountry(currentCountry)
+formatedCityList = formatCityList(cityListData)
+print(formatedCityList)
+print(isLastCity(city,formatedCityList))
 # print("old city",city)
 # # change = changeIsClean(city)
 # # print(change)
