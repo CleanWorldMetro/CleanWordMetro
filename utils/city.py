@@ -1,8 +1,8 @@
 from config import connection
-# import utils.player as playerUtil
-# import utils.robot as robotUtil
-# import utils.country as countryUtil
-# import utils.sql as sqlUtil
+import utils.player as playerUtil
+import utils.robot as robotUtil
+import utils.country as countryUtil
+import utils.sql as sqlUtil
 
 def getCurrentCityData(player):
     playeriD = player[0]
@@ -16,26 +16,30 @@ def getCurrentCityData(player):
 
 
 
-def getCityListInOneCountry(country):
+def getCityListInCurrentCountry(country):
     currentCountryId = country[0]
     selectedColumns = "city.name"
-    sql = "Select city.name from city,country"
-    finalSql = f"{sql} WHERE city.country = country.id"
+    sql = f"Select {selectedColumns} from city,country"
+    finalSql = f"{sql} WHERE city.country = country.id and country.id = {currentCountryId}"
     print(finalSql)
     result = sqlUtil.executeSql(finalSql)
     return result
 
-
-
-def changeIsClean(city):
+def isCleanCity(city):
     isClean = city[3]
-    print(isClean)
-    if isClean == 0:
-        print("change from 0 to 1")
+    if isClean:
+        return True
+    else:
+        return False
+def changeIsClean(isCleanStatus,city):
+    isClean = city[3]
+    # print(isClean)
+    if isCleanStatus == False: # city is already clean
         isClean = 1
-    else:  #future implement, can change isClean back to 0
-        print("change from 1 to 0")
-        isClean = 0
+    # else:  #future implement, can change isClean back to 0
+    #     print("change from 1 to 0")
+    #     isClean = 0
+    # else:
     return  isClean
 
 def changeIsBossDefeatInCity(isBossDefeat,city):
@@ -61,7 +65,7 @@ def updateIsClean (city,newIsClean):
     cursor = connection.cursor()
     cursor.execute(finalSql)
     result = cursor.fetchall()
-    print("Your stat have been updated")
+    print("Your stat have been updated Why I have double")
 
     return result
 
@@ -94,27 +98,32 @@ def formatCityList(cityListData):
     return  tuple(formattedList) # return a tuple of citylist
 
 def cleanCity(city):
-    newIsClean = changeIsClean(city)
+    isCleanStatus = isCleanCity(city)
+    newIsClean = changeIsClean(isCleanStatus,city)
+    print("Iam here")
     updateIsClean(city,newIsClean) # update is Clean
     # newBossStatus = changeIsBossDefeatInCity(resultFightBoss,city)
     # updateBossStatus(city,newBossStatus) # update boss status
-    result = newIsClean
+    # result = newIsClean
 
-    return result
+    return newIsClean
 
-def moveToNewCity(city,resultOfCleanCity):
-    return
+# def moveToNewCity(resultOfCleanCity,city,country):
+#     cityList = getCityListInCurrentCountry(country)
+#     isLast = isLastCity(city,cityList)
+#     # print(isLast)
+#     # if resultOfCleanCity == True:
+#     #     if
+#     return isLast
 
 ## move the import here to prevent circulate import
-import utils.player as playerUtil
-import utils.robot as robotUtil
-import utils.country as countryUtil
-import utils.sql as sqlUtil
+
 
 # player = playerUtil.getPlayerByName("Trung")
 # boss = robotUtil.getCurrentBossData(player)
-# # print(boss)
+# # # print(boss)
 # city = getCurrentCityData(player)
+# resultIsClean = cleanCity(city)
 # # # city = "Vantaa"
 # # currentCountry = countryUtil.getCurrentCountryData(player)
 # # cityListData = getCityListInOneCountry(currentCountry)
@@ -130,4 +139,7 @@ import utils.sql as sqlUtil
 # city = getCurrentCityData(player)
 # print("new city",city)
 # print(isCleanCity(player,boss))
-# print(city)
+#
+# import utils.country as countryUtil
+# import utils.player as playerUtil
+# import utils.robot as robotUtil

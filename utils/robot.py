@@ -1,6 +1,8 @@
 from config import connection
-import utils.player as playerUtil
-import utils.city as cityUtil
+#careful with importing order
+# import utils.player as playerUtil
+# import utils.city as cityUtil
+
 import random
 
 
@@ -120,13 +122,12 @@ def showRobotInfo(robot):
 
 
 
-def match(player,robot,boss):
+def match(player,robot,boss,playerDefaultStat):
     playerUtil.showPlayerInfo(player)
     showRobotInfo(robot)
     playerStat = player[2]
     bossStat = boss[3]
     isBoss = isBossRobot(robot)
-    playerDefaultStat = 1
     # robotStat = robot[3]
     # robotType = getRobotType(robot)
     win = isWinWhenFarm(player,robot)
@@ -193,15 +194,27 @@ def fightBoss(player,boss):
         print(" the boss letting you go!.:")
     return isWinBoss
 
-def meetBoss(player,boss,city):
+def meetBoss(player,boss,city,country):
+    ## update player stat to the lowest of next location
+    # and return the result of the match with boss
     resultFromMeetBoss = fightBoss(player,boss)
-    isClean = city[3]# return true if he defeat a robot
-    if resultFromMeetBoss:
+
+    isClean = city[3]# fetch current city isClean status
+    if resultFromMeetBoss: ##
         ## when defeat the guardian
         ## update both boss status and isClean status
-        isClean = cityUtil.cleanCity(city) ## return newIsClean
-        return isClean
-    else: isClean
+        ## return newIsClean status, and update it to database, from 0 to 1
+        newIsClean = cityUtil.cleanCity(city)
+        newLocationId = playerUtil.movetoNewCity(newIsClean,player,city,country)
+        print(newLocationId)
+
+
+        # return isClean
+    else:
+        # return isClean
+        return
+
+
 
     # if winBoss:
     #change and update bossStatus
@@ -215,20 +228,22 @@ def meetBoss(player,boss,city):
 
     # isCleanCity(player,boss)
 
-def fight(player,boss):
+def fight(player,boss,defaultStat):
 
     player_name = player[1]
     robotList = getRobotsByLocation(player)  # get robot List at a location
     # boss = get_current_boss_data(player)  # get boss at a location
     # print("This is boss data",boss)
     filteredList = filterRobotList(player, robotList)  # filter robot list based on player stat
+    # print("Robot List",filteredList)
+    # defaultStat =1
     # print("This is a new robot list based on player",filterRobotList(player,robotList))
 
     randomRobot = getRandomRobot(filteredList)  # get random robot from filtered list
     # print("This is random robot", getRandomRobot(filteredList))
-    print("Wait here")
+    # print("Wait here")
     # newPlayerStat = match(player, randomRobot, boss)
-    result = match(player, randomRobot, boss)
+    result = match(player, randomRobot, boss,defaultStat) ##result = [newStat, isWin]
     newStat = result[0]
     isWin = result[1]
     isWinId = getIsWinId(isWin)
@@ -262,3 +277,7 @@ def fight(player,boss):
 # print(player)
 # resultOfFightBoss = meetBoss(player,boss,city)
 # print(resultOfFightBoss)
+
+
+import utils.city as cityUtil
+import utils.player as playerUtil

@@ -7,6 +7,7 @@ import utils.player as playerUtil
 import utils.quiz as quizUtil
 import utils.robot as robotUtil
 import utils.city as cityUtil
+import utils.country as countryUtil
 
 
 def inCityGui():
@@ -25,16 +26,21 @@ def inCityGui():
     return int(option)
 
 
-def chooseOptionInCity(number,player,boss,city):
+def chooseOptionInCity(number,player,boss,city,country):
+    robotList = robotUtil.getRobotsByLocation(player)
+    # print(robotList)
+    defaultPlayerStat = playerUtil.getDefautlStat(player,robotList)
+    # print("This is default PlayerStat",defaultPlayerStat)
+    # print(defaultPlayerStat)
     if number == 1:
         print("Let go to boss room")
-        robotUtil.meetBoss(player,boss,city)
+        robotUtil.meetBoss(player,boss,city,country)
     if number == 2:
         print("Let's defeat some robots!")
-        robotUtil.fight(player,boss)
+        robotUtil.fight(player,boss,defaultPlayerStat)
     if number == 3:
         print("let's answer some quiz!")
-        quizUtil.quiz(player,boss)
+        quizUtil.quiz(player,boss,defaultPlayerStat)
     if number == 4:
         print("do nothing")
     if number == 5:
@@ -85,21 +91,37 @@ def game(player):
         playerId = player[0]
         boss = robotUtil.getCurrentBossData(player)
         city =  cityUtil.getCurrentCityData(player)
+        country = countryUtil.getCurrentCountryData(player)
         updatedPlayer =playerUtil.getPlayerByID(playerId)
+
         # playerInfo = playerUtil.showPlayerInfo(updatedPlayer)
         print(f"Welcome to {city[1]}")
         playerUtil.showPlayerInfo(updatedPlayer)
         showIntroduction(updatedPlayer)
 
         playerOption = inCityGui()
-        chooseOptionInCity(playerOption,updatedPlayer,boss,city)
+        chooseOptionInCity(playerOption,updatedPlayer,boss,city,country)
 
     # return playerOption
 
 
-#
+# #
 # player = playerUtil.getPlayerByName("Trung")
+# print(player)
+# newStat = player[2] = 5
+# print(player)
+#
 # boss = robotUtil.getCurrentBossData(player)
+# city = cityUtil.getCurrentCityData(player)
+# country = countryUtil.getCurrentCountryData(player)
+# cityList = cityUtil.getCityListInCurrentCountry(country)
+# formattedCityList = cityUtil.formatCityList(cityList)
+# robotUtil.meetBoss(player,boss,city,country)
+# print(playerUtil.changeLocation())
+# print(formattedCityList)
+# # playerUtil.changeLocation(player,boss,city)
+
+
 # # print(boss)
 # formatedData = playerUtil.formatPlayerData(player)
 # game(player)

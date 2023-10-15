@@ -3,7 +3,7 @@ import utils.player as playerUtil
 
 def getCurrentCountryData(player):
     playerId = player[0]
-    sql = "select country.id, country.name, country.isCountryClean from country, city, player"
+    sql = "select country.id, country.name, country.isClean from country, city, player"
     moreSql = f"{sql} WHERE country.id = city.country AND city.id = player.location"
     finalSql = f"{moreSql} AND player.id = {playerId}"
     cursor = connection.cursor()

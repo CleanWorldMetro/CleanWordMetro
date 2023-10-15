@@ -1,4 +1,12 @@
 from config import connection
+# import utils.robot as robotUtil
+# import utils.city as cityUtil
+import utils.robot as robotUtil
+import utils.city as cityUtil
+
+# import importlib
+
+# cityUtil = importlib.import_module('')
 
 def insertNewPlayer (nameData):
     nameDataToTuple = tuple(nameData)
@@ -93,8 +101,9 @@ def setDefaultData(player):
     currentPlayerId = player[0]
     defaultIsNew = 1
     defaultResStat = 1
+    defaultLocationId = 1
     sql = "update player"
-    moreSql = f"{sql} SET resStat = {str(defaultResStat)}, isNew = {defaultIsNew}"
+    moreSql = f"{sql} SET resStat = {str(defaultResStat)}, isNew = {defaultIsNew}, location = {defaultLocationId}"
     finaSql = moreSql + " where id= "  + str(currentPlayerId) + ""
     cursor = connection.cursor()
     cursor.execute(finaSql)
@@ -108,6 +117,58 @@ def isNewPlayer(player):
     else:
         return False
 
+# def refillEnergy(player):
+#     energy = player[5]
+
+
+def updatelocation(player,newLocationID):
+    currentPlayerId = player[0]
+    sql = "update player"
+    moreSql = sql + " SET location = " + str(newLocationID)
+    finalSql = moreSql + " where id= " + str(currentPlayerId) + ""
+    cursor = connection.cursor()
+    cursor.execute(finalSql)
+    result = cursor.fetchall()
+    print("Your location have changed.")
+    return result
+
+
+def changelocationID (player):
+    currentLocationID = player[3]
+    newLocationId = currentLocationID + 1
+    player[3] = newLocationId
+    updatelocation(player,newLocationId)
+    # print(player)
+
+def getDefautlStat (player,robotList):
+    playerStat = player[2]
+    robotLowestStat = robotList[0][3]
+    # print("Robot lowest Stat",robotList[0][3])
+    playerStat = robotLowestStat
+
+
+    return playerStat
+
+
+def movetoNewCity(resultOfIsCleanCity,player,city,country):
+
+    cityList = cityUtil.getCityListInCurrentCountry(country)
+    formattedCityList = cityUtil.formatCityList(cityList)
+    isLast = cityUtil.isLastCity(city, formattedCityList)
+    if resultOfIsCleanCity: # if the city is clean
+        if isLast:
+            print("You have clean the last city")
+            print("Congratulation!! You have clean the world")
+        else:
+            print(f"Congrat on cleaning {city[1]} ")
+            print("You will go to the next city shortly")
+            changelocationID(player)
+    # print(isLast)
+    # if resultOfCleanCity == True:
+    #     if
+    return
+
+    # return
 
 
 
@@ -124,7 +185,15 @@ def isNewPlayer(player):
 #         return result
 
 # playerName = "Huy"
-# # player = getPlayerByName(playerName)
+#
+# player = getPlayerByName(playerName)
+# # print(player)
+# city = cityUtil.getCurrentCityData(player) # call city first so need to put import in city at first
+# # print(city)
+# boss = robotUtil.getCurrentBossData(player)
+# # print(boss)
+# changeLocation(player,boss,city)
+
 # print(player)
 # print(getCurrentPlayerLocationId(player))
 # name = "Huy"

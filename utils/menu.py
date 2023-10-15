@@ -79,7 +79,10 @@ def nonExistGUI(username):
     print("1.New game")
     print("2.Exit program")
     option = input("Please enter your option(1/2): ")
-    return option
+    while (option == "1"):
+        return option
+
+    nonExistGUI(username)
 
 def optionNonExistGUI(option,username):
         if option == "1":
