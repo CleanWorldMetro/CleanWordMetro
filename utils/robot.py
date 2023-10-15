@@ -1,5 +1,6 @@
 from config import connection
 import utils.player as playerUtil
+import utils.city as cityUtil
 import random
 
 
@@ -128,7 +129,7 @@ def match(player,robot,boss):
     playerDefaultStat = 1
     # robotStat = robot[3]
     # robotType = getRobotType(robot)
-    win = isWin(player,robot)
+    win = isWinWhenFarm(player,robot)
 
     if win and isBoss:
         # if isBoss:
@@ -153,7 +154,7 @@ def match(player,robot,boss):
 #         return False
 
 
-## return newplayer Stat when defeat boss
+# return new player Stat if win
 def fightBossGuardian(isWinBoss,player):
     playerStat = player[2]
     if isWinBoss:
@@ -186,19 +187,34 @@ def fightBoss(player,boss):
         newPlayerStat = fightBossGuardian(isWinBoss,player)
         playerUtil.updateStat(player,newPlayerStat)
         print(newPlayerStat)
-    # if winBoss:
-        # change city.isClean from 0 to 1 :
-        # update new city.isClean status
-        # check if this city is the last one in the city list >> all city clean >> win:
-        # else:
-        # change player.location to next 1 ( check
-        # update player.location to database
+
     else:
         print(" you are not strong enough")
         print(" the boss letting you go!.:")
-
     return isWinBoss
+
+def meetBoss(player,boss,city):
+    resultFromMeetBoss = fightBoss(player,boss)
+    isClean = city[3]# return true if he defeat a robot
+    if resultFromMeetBoss:
+        ## when defeat the guardian
+        ## update both boss status and isClean status
+        isClean = cityUtil.cleanCity(city) ## return newIsClean
+        return isClean
+    else: isClean
+
+    # if winBoss:
+    #change and update bossStatus
+    # start to clean city
+# change city.isClean from 0 to 1 :
+# update new city.isClean status
+# check if this city is the last one in the city list >> all city clean >> win:
+# else:
+# change player.location to next 1 ( check
+# update player.location to database
+
     # isCleanCity(player,boss)
+
 def fight(player,boss):
 
     player_name = player[1]
@@ -232,16 +248,17 @@ def fight(player,boss):
 
 #player meet robot
 # print("THis is robot List", robotList)
-player_name = "Trung"
-player = playerUtil.getPlayerByName(player_name)
-boss = getCurrentBossData(player)
-# # robots = getRobotsByLocation(player)
-# # print(robots)
-# print(boss)
-# # bossInfo = showRobotInfo(boss)
-# # # updatePlayerData = fight(player,boss)
-print(player)
-player[2] = 5
-print(player)
-resultOfFightBoss = fightBoss(player,boss)
-print(resultOfFightBoss)
+# player_name = "Trung"
+# player = playerUtil.getPlayerByName(player_name)
+# boss = getCurrentBossData(player)
+# city = cityUtil.getCurrentCityData(player)
+# # # robots = getRobotsByLocation(player)
+# # # print(robots)
+# # print(boss)
+# # # bossInfo = showRobotInfo(boss)
+# # # # updatePlayerData = fight(player,boss)
+# print(player)
+# player[2] = 5
+# print(player)
+# resultOfFightBoss = meetBoss(player,boss,city)
+# print(resultOfFightBoss)

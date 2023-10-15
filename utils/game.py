@@ -25,9 +25,10 @@ def inCityGui():
     return int(option)
 
 
-def chooseOptionInCity(number,player,boss):
+def chooseOptionInCity(number,player,boss,city):
     if number == 1:
         print("Let go to boss room")
+        robotUtil.meetBoss(player,boss,city)
     if number == 2:
         print("Let's defeat some robots!")
         robotUtil.fight(player,boss)
@@ -91,7 +92,7 @@ def game(player):
         showIntroduction(updatedPlayer)
 
         playerOption = inCityGui()
-        chooseOptionInCity(playerOption,updatedPlayer,boss)
+        chooseOptionInCity(playerOption,updatedPlayer,boss,city)
 
     # return playerOption
 
